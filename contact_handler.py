@@ -64,6 +64,12 @@ def add_birthday(*args):
             print(f"Contact {name} was not found")
     elif len(args) == 2:
         name, birthday = args[0], args[1]
+        record = contacts.find(name)
+        if record:
+            record.add_birthday(birthday)
+            print("Birthday was added")
+        else:
+            print(f"Contact {name} was not found")
     elif len(args) == 1:
         name = args[0]
         record = contacts.find(name)
