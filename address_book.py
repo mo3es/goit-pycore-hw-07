@@ -38,7 +38,7 @@ class Birthday(Field):
 class Record:
     def __init__(self, name, phone):
         self.name = Name(name)
-        self.phones = [phone]
+        self.phones = [Phone(phone)]
         self.birthday = None
 
     def add_birthday(self, value: str):
@@ -65,8 +65,8 @@ class Record:
     def edit_phone(self, phone, new_phone):
         for p in self.phones:
             if p.value == phone:
-                if new_phone not in [p.value for p in self.phones]:
-                    p.value = new_phone
+                if new_phone not in [p.value for p1 in self.phones]:
+                    p = Phone(new_phone)
                     print(
                         f"Inputed phone number {phone} successfully edited to {new_phone}"
                     )

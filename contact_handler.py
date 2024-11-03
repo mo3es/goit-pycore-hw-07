@@ -49,7 +49,7 @@ def show_contact(*args):
 
 def show_all():
     for items in contacts:
-        print(items)
+        print(f'{contacts.find(items)}')
 
 
 def add_birthday(*args):
@@ -63,7 +63,7 @@ def add_birthday(*args):
         else:
             print(f"Contact {name} was not found")
     elif len(args) == 2:
-        name, birthday = args[0], args[1]
+        name, birthday = args[0].strip(), args[1].strip()
         record = contacts.find(name)
         if record:
             record.add_birthday(birthday)
@@ -71,7 +71,7 @@ def add_birthday(*args):
         else:
             print(f"Contact {name} was not found")
     elif len(args) == 1:
-        name = args[0]
+        name = args[0].strip()
         record = contacts.find(name)
         if record:
             record.add_birthday(birthday)
@@ -84,7 +84,7 @@ def add_birthday(*args):
 
 def show_birthday(*args):
     if len(args) != 0:
-        name = args[0]
+        name = args[0].strip()
     else:
         name = get_name()
     record = contacts.find(name)
@@ -117,15 +117,15 @@ def args_processing(*args) -> list[bool, str, str]:
         name = get_name()
         phone_number = get_phone_number(None)
     elif len(info) == 1:
-        if re.match("[0-9]", info[0]):
+        if re.match("[0-9]", info[0].strip()):
             print(f"Incorrect contact name {info[0]}, contact wasn`t added")
             return False, None, None
         else:
             phone_number = get_phone_number(None)
-            name = info[0]
+            name = info[0].strip()
     else:
-        if re.match("[0-9]", info[-1]):
-            phone_number = info[-1]
+        if re.match("[0-9]", info[-1].strip()):
+            phone_number = info[-1].strip()
             name = ""
             for item in info:
                 if item != phone_number:
@@ -141,7 +141,7 @@ def get_name() -> str:
     while True:
         name = input("Enter contact`s name:  ")
         if name:
-            return name
+            return name.strip()
 
 
 def get_phone_number(number: str) -> str:
@@ -149,7 +149,7 @@ def get_phone_number(number: str) -> str:
         if number is None:
             number = input("Enter phone number: ")
         if number is not None:
-            number = re.sub("[^0-9]", "", number)
+            number = re.sub("[^0-9]", "", number.strip())
 
             # Suffix correction
             if len(number) == 12:
